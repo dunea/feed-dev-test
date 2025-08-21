@@ -7,8 +7,8 @@ WORKDIR /app
 # 复制依赖文件（Yarn 项目）
 COPY package.json yarn.lock ./
 
-# 安装依赖（确保使用 Yarn 1.x）
-RUN npm i -g yarn@1.22.22 && yarn install --frozen-lockfile
+# 安装依赖（使用镜像内置的 yarn）
+RUN yarn install --frozen-lockfile
 # ... existing code ...
 # 复制项目代码
 COPY . .
