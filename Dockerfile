@@ -4,20 +4,20 @@ FROM node:20.18.0
 # 设置工作目录
 WORKDIR /app
 
-# 复制依赖文件
-COPY package.json package-lock.json ./
+# 复制依赖文件（Yarn 项目）
+COPY package.json yarn.lock ./
 
-# 安装依赖
-RUN npm install
-
+# 安装依赖（确保使用 Yarn 1.x）
+RUN npm i -g yarn@1.22.22 && yarn install --frozen-lockfile
+# ... existing code ...
 # 复制项目代码
 COPY . .
 
 # 构建项目
-RUN npm run build
+RUN yarn build
 
 # 暴露端口
 EXPOSE 3000
 
 # 启动应用
-CMD ["npm", "start"]
+CMD ["yarn", "start"]
